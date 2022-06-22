@@ -1,10 +1,8 @@
+import "dotenv/config"
 import fs from "fs"
 import path from "path"
 import http from "http"
-import Jimp from "jimp"
-import robot from "robotjs"
 import { WebSocketServer } from "ws"
-import "dotenv/config"
 
 export const httpServer = http.createServer(function (req, res) {
   const __dirname = path.resolve(path.dirname(""))
@@ -21,6 +19,12 @@ export const httpServer = http.createServer(function (req, res) {
   })
 })
 
-const HTTP_PORT = process.env.WS_PORT
+const HTTP_PORT = process.env.PORT
 console.log(`Start static http server on the ${HTTP_PORT} port!`)
 httpServer.listen(HTTP_PORT)
+
+const ws = new WebSocketServer({ port: 8080 })
+
+ws.on("connection", () => {
+  console.log(123)
+})
