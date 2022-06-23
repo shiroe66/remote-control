@@ -3,6 +3,7 @@ import fs from "fs"
 import path from "path"
 import http from "http"
 import { WebSocketServer } from "ws"
+import { mouseEvents } from "./helpers/mouseEvents"
 
 export const httpServer = http.createServer(function (req, res) {
   const __dirname = path.resolve(path.dirname(""))
@@ -23,8 +24,20 @@ const HTTP_PORT = process.env.PORT
 console.log(`Start static http server on the ${HTTP_PORT} port!`)
 httpServer.listen(HTTP_PORT)
 
-const ws = new WebSocketServer({ port: 8080 })
+const wss = new WebSocketServer({ port: 8080 })
 
-ws.on("connection", () => {
-  console.log(123)
+wss.on("connection", (ws) => {
+  ws.on("message", (msg) => {
+    const [message, action] = msg.toString().split("_")
+
+    switch (message) {
+      case "mouse":
+        mouseEvents(action)
+        break
+      case "draw":
+        break
+      case "prnt":
+        break
+    }
+  })
 })
