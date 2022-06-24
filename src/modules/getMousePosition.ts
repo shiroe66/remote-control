@@ -1,6 +1,7 @@
 import { getMousePos } from "robotjs"
+import { WebSocket } from "ws"
 
-export const getMousePosition = () => {
+export const getMousePosition = (ws: WebSocket) => {
   const { x, y } = getMousePos()
-  return `mouse_position ${x},${y}`
+  ws.send(`mouse_position ${x},${y}`)
 }
