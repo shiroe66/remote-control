@@ -32,7 +32,7 @@ wss.on("connection", (ws) => {
 
     switch (message) {
       case "mouse":
-        mouseEvents(action)
+        mouseEvents(msg, action, ws)
         break
       case "draw":
         break
