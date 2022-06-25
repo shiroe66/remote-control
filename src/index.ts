@@ -5,6 +5,7 @@ import http from "http"
 import { WebSocketServer } from "ws"
 import { mouseEvents } from "./helpers/mouseEvents"
 import { drawEvents } from "./helpers/drawEvents"
+import { prntEvent } from "./helpers/prntEvent"
 
 export const httpServer = http.createServer(function (req, res) {
   const __dirname = path.resolve(path.dirname(""))
@@ -39,9 +40,8 @@ wss.on("connection", (ws) => {
         drawEvents(msg, action, ws)
         break
       case "prnt":
+        prntEvent(msg, ws)
         break
     }
-
-    console.log(msg.toLocaleString())
   })
 })
