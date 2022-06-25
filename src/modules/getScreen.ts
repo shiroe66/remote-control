@@ -1,11 +1,21 @@
-import { getMousePos, screen } from "robotjs"
+import { getMousePos, getScreenSize, screen } from "robotjs"
 import Jimp from "jimp"
 import { WebSocket } from "ws"
 
 export const getScreen = async (ws: WebSocket) => {
-  const { x, y } = getMousePos()
+  let { x, y } = getMousePos()
+  const { width, height } = getScreenSize()
   const size = 200
-  const capture = screen.capture(x - size / 2, y - size / 2, size, size)
+
+  if (x + size > width) {
+    x = width - size
+  }
+
+  if (y + size > height) {
+    y = height - size
+  }
+
+  const capture = screen.capture(x, y, size, size)
 
   const image = new Jimp(capture.width, capture.height)
   image.bitmap.data = capture.image
