@@ -1,6 +1,7 @@
 import { getMousePos, getScreenSize, screen } from "robotjs"
 import Jimp from "jimp"
 import { WebSocket } from "ws"
+import { RESULT } from "../helpers/constants"
 
 export const getScreen = async (ws: WebSocket) => {
   let { x, y } = getMousePos()
@@ -39,5 +40,5 @@ export const getScreen = async (ws: WebSocket) => {
 
   const buffer = await image.getBufferAsync(Jimp.MIME_PNG)
   ws.send(`prnt_scrn ${buffer.toString("base64")}\0`)
-  console.log(`Result: prnt_scrn completed successful`)
+  console.log(RESULT, "prnt_scrn completed successful")
 }

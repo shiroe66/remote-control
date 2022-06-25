@@ -3,6 +3,7 @@ import fs from "fs"
 import http from "http"
 import path from "path"
 import { WebSocketServer } from "ws"
+import { RECEIVED } from "./helpers/constants"
 import { drawEvents } from "./helpers/drawEvents"
 import { mouseEvents } from "./helpers/mouseEvents"
 import { getScreen } from "./modules/getScreen"
@@ -31,7 +32,7 @@ const wss = new WebSocketServer({ port: 8080 })
 wss.on("connection", (ws) => {
   ws.on("message", (msg) => {
     const [message, action] = msg.toString().split("_")
-    console.log("Received:", msg.toString())
+    console.log(RECEIVED, msg.toString())
 
     switch (message) {
       case "mouse":
