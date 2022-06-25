@@ -10,7 +10,6 @@ export const mouseEvents = (msg: RawData, action: string, ws: WebSocket) => {
   }
 
   if (event === "up" || "down" || "right" || "left") {
-    moveMousePosition(event, Number(px))
-    ws.send(`${msg.toString()}\0`)
+    moveMousePosition(event, Number(px), ws, msg)
   }
 }
