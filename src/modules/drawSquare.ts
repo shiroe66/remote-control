@@ -1,5 +1,4 @@
 import {
-  dragMouse,
   getMousePos,
   mouseToggle,
   moveMouseSmooth,
@@ -10,7 +9,10 @@ export const drawSquare = (px: number) => {
   setMouseDelay(3)
   const { x, y } = getMousePos()
 
-  moveMouseSmooth(x, y + px)
-  mouseToggle("down", "right")
+  mouseToggle("down")
   moveMouseSmooth(x + px, y)
+  moveMouseSmooth(x + px - 2, y + px + 2)
+  moveMouseSmooth(x - 1, y + px)
+  moveMouseSmooth(x, y)
+  mouseToggle("up")
 }
