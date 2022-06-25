@@ -10,7 +10,7 @@ export const drawEvents = (msg: RawData, action: string, ws: WebSocket) => {
     const [event, width, length] = action.split(" ")
 
     // Обработка ошибки на случай пустого Input
-    if (width === "null") {
+    if (width === "null" || length === "null") {
       reject()
     } else {
       resolve({ event, width })
