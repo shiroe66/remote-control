@@ -1,4 +1,4 @@
-import { dragMouse, getMousePos } from "robotjs"
+import { dragMouse, getMousePos, mouseToggle } from "robotjs"
 
 export const drawCircle = (radius: number) => {
   const { x, y } = getMousePos()
@@ -8,5 +8,7 @@ export const drawCircle = (radius: number) => {
     const posY = y + radius * Math.sin(i)
 
     dragMouse(posX, posY)
+    mouseToggle("down")
   }
+  mouseToggle("up")
 }
