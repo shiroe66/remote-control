@@ -19,4 +19,5 @@ export const drawEvents = (msg: RawData, action: string, ws: WebSocket) => {
   }
 
   ws.send(`${msg.toString()}\0`)
+  console.log(`Result: ${event} drawed`)
 }

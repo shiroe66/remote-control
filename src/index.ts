@@ -31,6 +31,7 @@ const wss = new WebSocketServer({ port: 8080 })
 wss.on("connection", (ws) => {
   ws.on("message", (msg) => {
     const [message, action] = msg.toString().split("_")
+    console.log("Received:", msg.toString())
 
     switch (message) {
       case "mouse":

@@ -17,4 +17,5 @@ export const moveMousePosition = (event: string, px: number) => {
       moveMouse(x + px, y)
       break
   }
+  console.log(`Result: mouse moved ${event} to ${px}px`)
 }

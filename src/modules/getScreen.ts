@@ -39,4 +39,5 @@ export const getScreen = async (ws: WebSocket) => {
 
   const buffer = await image.getBufferAsync(Jimp.MIME_PNG)
   ws.send(`prnt_scrn ${buffer.toString("base64")}\0`)
+  console.log(`Result: prnt_scrn completed successful`)
 }
