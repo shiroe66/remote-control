@@ -1,4 +1,4 @@
-# RSSchool NodeJS websocket task template
+# NodeJS websocket task template
 
 ## Installation
 
