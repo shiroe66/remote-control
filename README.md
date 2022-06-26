@@ -2,7 +2,7 @@
 
 ## Installation
 
-1. Clone `git clone https://github.com/shiroe66/remote-control remote-control`/ Download repo
+1. Clone `git clone https://github.com/shiroe66/remote-control.git remote-control`/ Download repo
 2. `npm install`
 3. `git checkout develop`
 4. `Rename .env.example file to .env`
