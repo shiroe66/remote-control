@@ -30,6 +30,10 @@ httpServer.listen(HTTP_PORT)
 const SOCKET_PORT = Number(process.env.WS_PORT) || 8080
 const wss = new WebSocketServer({ port: SOCKET_PORT })
 
+wss.on("headers", (headers) => {
+  console.log("Websocket headers:", headers.join("\n"))
+})
+
 wss.on("connection", (ws) => {
   console.log(`Websocket started on the ${SOCKET_PORT} port!`)
 
