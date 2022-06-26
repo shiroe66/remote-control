@@ -8,15 +8,24 @@ export const getScreen = async (duplex: Duplex) => {
   const { width, height } = getScreenSize()
   const size = 200
 
+  // Вычисления для краёв экрана
   if (x + size > width) {
-    x = width - size
+    x = width - size / 2
   }
 
   if (y + size > height) {
-    y = height - size
+    y = height - size / 2
   }
 
-  const capture = screen.capture(x, y, size, size)
+  if (y - size < 0) {
+    y = size / 2
+  }
+
+  if (x - size < 0) {
+    x = size / 2
+  }
+
+  const capture = screen.capture(x - 100, y - 100, size, size)
 
   const image = new Jimp(capture.width, capture.height)
   image.bitmap.data = capture.image
