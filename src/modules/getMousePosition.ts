@@ -1,9 +1,9 @@
 import { getMousePos } from "robotjs"
-import { WebSocket } from "ws"
+import { Duplex } from "stream"
 import { RESULT } from "../helpers/constants"
 
-export const getMousePosition = (ws: WebSocket) => {
+export const getMousePosition = (duplex: Duplex) => {
   const { x, y } = getMousePos()
-  ws.send(`mouse_position ${x},${y}`)
+  duplex.write(`mouse_position ${x},${y}`)
   console.log(RESULT, `mouse_position at x: ${x}, at y: ${y}`)
 }

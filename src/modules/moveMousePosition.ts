@@ -1,11 +1,12 @@
 import { getMousePos, moveMouse } from "robotjs"
-import { RawData, WebSocket } from "ws"
+import { Duplex } from "stream"
+import { RawData } from "ws"
 import { ERROR, RESULT } from "../helpers/constants"
 
 export const moveMousePosition = (
   event: string,
   px: number,
-  ws: WebSocket,
+  duplex: Duplex,
   msg: RawData
 ) => {
   // Обработка ошибки на случай пустого Input
@@ -28,7 +29,7 @@ export const moveMousePosition = (
         moveMouse(x + px, y)
         break
     }
-    ws.send(`${msg.toString()}\0`)
+    duplex.write(`${msg.toString()}\0`)
     console.log(RESULT, `mouse moved ${event} to ${px}px`)
   }
 }

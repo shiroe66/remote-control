@@ -1,9 +1,9 @@
-import { getMousePos, getScreenSize, screen } from "robotjs"
 import Jimp from "jimp"
-import { WebSocket } from "ws"
+import { getMousePos, getScreenSize, screen } from "robotjs"
+import { Duplex } from "stream"
 import { RESULT } from "../helpers/constants"
 
-export const getScreen = async (ws: WebSocket) => {
+export const getScreen = async (duplex: Duplex) => {
   let { x, y } = getMousePos()
   const { width, height } = getScreenSize()
   const size = 200
@@ -39,6 +39,6 @@ export const getScreen = async (ws: WebSocket) => {
   })
 
   const buffer = await image.getBufferAsync(Jimp.MIME_PNG)
-  ws.send(`prnt_scrn ${buffer.toString("base64")}\0`)
+  duplex.write(`prnt_scrn ${buffer.toString("base64")}\0`)
   console.log(RESULT, "prnt_scrn completed successful")
 }

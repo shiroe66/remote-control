@@ -2,7 +2,7 @@ import "dotenv/config"
 import fs from "fs"
 import http from "http"
 import path from "path"
-import { WebSocketServer } from "ws"
+import WebSocket, { createWebSocketStream, WebSocketServer } from "ws"
 import { RECEIVED } from "./helpers/constants"
 import { drawEvents } from "./helpers/drawEvents"
 import { mouseEvents } from "./helpers/mouseEvents"
@@ -30,19 +30,24 @@ httpServer.listen(HTTP_PORT)
 const wss = new WebSocketServer({ port: 8080 })
 
 wss.on("connection", (ws) => {
+  const duplex = createWebSocketStream(ws, {
+    encoding: "utf-8",
+    decodeStrings: false,
+  })
+
   ws.on("message", (msg) => {
     const [message, action] = msg.toString().split("_")
     console.log(RECEIVED, msg.toString())
 
     switch (message) {
       case "mouse":
-        mouseEvents(msg, action, ws)
+        mouseEvents(msg, action, duplex)
         break
       case "draw":
-        drawEvents(msg, action, ws)
+        drawEvents(msg, action, duplex)
         break
       case "prnt":
-        getScreen(ws)
+        getScreen(duplex)
         break
     }
   })

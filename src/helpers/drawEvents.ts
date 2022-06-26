@@ -1,10 +1,11 @@
-import WebSocket, { RawData } from "ws"
+import { Duplex } from "stream"
+import { RawData } from "ws"
 import { drawCircle } from "../modules/drawCircle"
 import { drawRectangle } from "../modules/drawRectangle"
 import { drawSquare } from "../modules/drawSquare"
 import { ERROR, RESULT } from "./constants"
 
-export const drawEvents = (msg: RawData, action: string, ws: WebSocket) => {
+export const drawEvents = (msg: RawData, action: string, duplex: Duplex) => {
   const [event, width, length] = action.split(" ")
 
   // Обработка ошибки на случай пустого Input
@@ -23,7 +24,7 @@ export const drawEvents = (msg: RawData, action: string, ws: WebSocket) => {
       drawRectangle(Number(width), Number(length))
     }
 
-    ws.send(`${msg.toString()}\0`)
+    duplex.write(`${msg.toString()}\0`)
     console.log(RESULT, `${event} drawed`)
   }
 }
